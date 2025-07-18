@@ -2,6 +2,7 @@ package com.ms.artifact;
 
 import com.ms.artifact.dto.ArtifactDto;
 import com.ms.artifact.utils.IdWorker;
+import com.ms.system.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class ArtifactService
     public Artifact findById(String artifactId)
     {
         return artifactRepository.findById(artifactId)
-                .orElseThrow(() -> new ArtifactNotFoundException(artifactId));
+                .orElseThrow(() -> new ObjectNotFoundException("artifact",artifactId));
     }
 
     public List<Artifact> findAll()
@@ -45,13 +46,13 @@ public class ArtifactService
                     obj.setImageUrl(update.getImageUrl());
                     return artifactRepository.save(obj);
                 })
-                .orElseThrow(() -> new ArtifactNotFoundException(artifactId));
+                .orElseThrow(() -> new ObjectNotFoundException("artifact",artifactId));
     }
 
     public void delete(String artifactId)
     {
         artifactRepository.findById(artifactId)
-                .orElseThrow(() -> new ArtifactNotFoundException(artifactId));
+                .orElseThrow(() -> new ObjectNotFoundException("artifact",artifactId));
         artifactRepository.deleteById(artifactId);
     }
 }

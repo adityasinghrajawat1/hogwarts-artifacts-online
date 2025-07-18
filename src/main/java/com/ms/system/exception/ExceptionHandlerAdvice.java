@@ -1,6 +1,6 @@
 package com.ms.system.exception;
 
-import com.ms.artifact.ArtifactNotFoundException;
+
 import com.ms.system.Result;
 import com.ms.system.StatusCode;
 import org.springframework.http.HttpStatus;
@@ -18,11 +18,10 @@ import java.util.Map;
 @RestControllerAdvice
 public class ExceptionHandlerAdvice
 {
-    @ExceptionHandler(ArtifactNotFoundException.class)
+    @ExceptionHandler(ObjectNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    Result handleArtifactNotFoundException(ArtifactNotFoundException e)
-    {
-            return new Result(false, StatusCode.NOT_FOUND,e.getMessage());
+    Result handleObjectNotFoundException(ObjectNotFoundException ex){
+        return new Result(false, StatusCode.NOT_FOUND, ex.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
