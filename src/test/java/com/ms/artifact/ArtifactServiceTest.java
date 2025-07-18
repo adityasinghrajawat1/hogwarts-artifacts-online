@@ -1,6 +1,7 @@
 package com.ms.artifact;
 
 import com.ms.artifact.utils.IdWorker;
+import com.ms.system.exception.ObjectNotFoundException;
 import com.ms.wizard.Wizard;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -99,7 +100,7 @@ class ArtifactServiceTest {
         });
 
         assertThat(thrown)
-                    .isInstanceOf(ArtifactNotFoundException.class)
+                    .isInstanceOf(ObjectNotFoundException.class)
                     .hasMessage("Could not find artifact with Id 1250808601744904192 :(");
         verify(artifactRepository,times(1)).findById("1250808601744904192");
     }
@@ -171,7 +172,7 @@ class ArtifactServiceTest {
 
         given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
-        assertThrows(ArtifactNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
            artifactService.update("1250808601744904192",update);
         });
 
@@ -201,7 +202,7 @@ class ArtifactServiceTest {
     {
         given(artifactRepository.findById("1250808601744904192")).willReturn(Optional.empty());
 
-        assertThrows(ArtifactNotFoundException.class, () -> {
+        assertThrows(ObjectNotFoundException.class, () -> {
            artifactService.delete("1250808601744904192");
         });
         verify(artifactRepository,times(1)).findById("1250808601744904192");
