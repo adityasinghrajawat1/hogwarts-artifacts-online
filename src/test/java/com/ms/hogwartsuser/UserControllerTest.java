@@ -29,8 +29,8 @@ import static org. springframework. test. web. servlet. request.MockMvcRequestBu
 
 @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
-public class UserControllerTest
-{
+class UserControllerTest {
+
     @Autowired
     MockMvc mockMvc;
 
@@ -213,4 +213,5 @@ public class UserControllerTest
                 .andExpect(jsonPath("$.message").value("Could not find user with Id 5 :("))
                 .andExpect(jsonPath("$.data").isEmpty());
     }
+
 }
