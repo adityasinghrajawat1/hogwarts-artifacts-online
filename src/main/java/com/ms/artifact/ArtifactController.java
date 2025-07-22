@@ -6,6 +6,8 @@ import com.ms.artifact.dto.ArtifactDto;
 import com.ms.system.Result;
 import com.ms.system.StatusCode;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,14 +40,13 @@ public class ArtifactController
     }
 
     @GetMapping
-    public Result findAllArtifacts()
+    public Result findAllArtifacts(Pageable pageable)
     {
-        List<Artifact> foundArtifacts = artifactService.findAll();
+        Page<Artifact> artifactPage = artifactService.findAll(pageable);
 
-        List<ArtifactDto> artifactDtos = foundArtifacts.stream()
-                                        .map( i -> artifactToArtifactDtoConverter.convert(i))
-                                        .collect(Collectors.toList());
-        return new Result(true,StatusCode.SUCCESS,"Find All Success",artifactDtos);
+        Page<ArtifactDto> artifactDtoPage = artifactPage
+                                        .map( i -> artifactToArtifactDtoConverter.convert(i));
+        return new Result(true,StatusCode.SUCCESS,"Find All Success",artifactDtoPage);
     }
 
     @PostMapping
