@@ -4,6 +4,8 @@ import com.ms.artifact.dto.ArtifactDto;
 import com.ms.artifact.utils.IdWorker;
 import com.ms.system.exception.ObjectNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +56,9 @@ public class ArtifactService
         artifactRepository.findById(artifactId)
                 .orElseThrow(() -> new ObjectNotFoundException("artifact",artifactId));
         artifactRepository.deleteById(artifactId);
+    }
+
+    public Page<Artifact> findAll(Pageable pageable) {
+        return artifactRepository.findAll(pageable);
     }
 }
