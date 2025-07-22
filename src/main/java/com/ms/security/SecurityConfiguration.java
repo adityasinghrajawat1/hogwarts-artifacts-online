@@ -66,6 +66,7 @@ public class SecurityConfiguration
                 return http
                         .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                                 .requestMatchers(HttpMethod.GET,this.baseUrl + "/artifacts/**").permitAll()
+                                .requestMatchers(HttpMethod.POST,this.baseUrl + "/artifacts/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,"/actuator/**").permitAll()
                                 .requestMatchers(HttpMethod.GET,this.baseUrl + "/users/**").hasAuthority("ROLE_admin")
                                 .requestMatchers(HttpMethod.POST,this.baseUrl + "/users").hasAuthority("ROLE_admin")
